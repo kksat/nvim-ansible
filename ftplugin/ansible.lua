@@ -8,6 +8,7 @@ if fname:find("tasks/") then
     vim.bo.path,
     vim.fs.dirname(fname:gsub("tasks/", "files/")),
     vim.fs.dirname(fname),
+    "~/.ansible/collections",
   }
   vim.bo.path = table.concat(paths, ",")
 end
