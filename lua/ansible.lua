@@ -1,5 +1,38 @@
 ---@mod ansible
+local lyaml = require("lyaml")
 
+local function is_ansible_playbook(file_path)
+  local file = io.open(file_path, "r")
+  if not file then
+    return false
+  end
+
+  local content = file:read("*all")
+  file:close()
+
+  local yaml_content, pos, err = lyaml.load(content)
+  if err then
+    print("Error parsing YAML: " .. err)
+    return false
+  end
+
+  -- Check if the YAML content is a sequence
+  if type(yaml_content) ~= "table" then
+    return false
+  end
+
+  -- Check if each item in the sequence is a mapping with 'hosts' and 'tasks' keys
+  for _, item in ipairs(yaml_content) do
+    if type(item) ~= "table" or not item["hosts"] or not item["tasks"] then
+      return false
+    end
+  end
+
+  return true
+end
+
+-- Usage
+print(is_ansible_playbook("path_to_your_file.yml"))
 local api = vim.api
 local M = {}
 
@@ -93,7 +126,7 @@ function M.run()
       table.insert(cmd, "-K")
     end
     launch_term(cmd)
-  elseif path:match("/playbooks/") then
+  elseif path:match("/playbooks/") or is_ansible_playbook(path) then
     local lines = api.nvim_buf_get_lines(bufnr, 0, -1, true)
     local cmd = {
       "ansible-playbook",
