@@ -14,7 +14,7 @@ end
 
 local function launch_term(cmd)
   vim.cmd("belowright new")
-  vim.fn.termopen(cmd, vim.empty_dict())
+  vim.fn.termopen(cmd, vim.empty_dict(), opts= {env= {ANSIBLE_COLLECTIONS_PATH = vim.fn.getcwd()}
 end
 
 ---@param mode "v"|"V"
@@ -76,7 +76,7 @@ function M.run()
       playbook_dir = path:sub(1, end_)
     end
     local cmd = {
-      "ANSIBLE_COLLECTIONS_PATH=" .. vim.fn.getcwd(),
+      -- "ANSIBLE_COLLECTIONS_PATH=" .. vim.fn.getcwd(),
       "ansible",
       "localhost",
       "--playbook-dir",
@@ -93,7 +93,7 @@ function M.run()
   elseif path:match("/playbooks/") then
     local lines = api.nvim_buf_get_lines(bufnr, 0, -1, true)
     local cmd = {
-      "ANSIBLE_COLLECTIONS_PATH=" .. vim.fn.getcwd(),
+      -- "ANSIBLE_COLLECTIONS_PATH=" .. vim.fn.getcwd(),
       "ansible-playbook",
       path,
     }
