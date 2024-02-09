@@ -7,6 +7,12 @@ git clone \
     https://github.com/mfussenegger/nvim-ansible.git \
     ~/.config/nvim/pack/plugins/start/nvim-ansible
 ```
+## Requirements
+
+lua package layml
+
+Required to parse ansible yaml files to determine if they are playbooks.
+
 
 ## Usage
 

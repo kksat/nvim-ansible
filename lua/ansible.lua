@@ -1,8 +1,11 @@
 ---@mod ansible
+local lua_path = os.getenv("LUA_PATH")
+package.path = package_path_str .. lua_path
+package.cpath = package_cpath_str .. lua_path
 local lyaml = require("lyaml")
 
 local function is_ansible_playbook(file_path)
-  local file = io.open(file_path, "r")
+  local file = io.open(file_path("r"))
   if not file then
     return false
   end
