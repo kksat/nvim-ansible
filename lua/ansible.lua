@@ -14,7 +14,11 @@ end
 
 local function launch_term(cmd)
   vim.cmd("belowright new")
-  vim.fn.termopen(cmd, vim.empty_dict(), opts= {env= {ANSIBLE_COLLECTIONS_PATH = vim.fn.getcwd()}
+  vim.fn.termopen(
+    cmd,
+    -- vim.empty_dict(),
+    { env = { ANSIBLE_COLLECTIONS_PATH = vim.fn.getcwd() } }
+  )
 end
 
 ---@param mode "v"|"V"
