@@ -1,13 +1,13 @@
 local api = vim.api
-if vim.fn.executable('ansible-doc') then
-  vim.bo.keywordprg = ':sp term://ansible-doc'
+if vim.fn.executable("ansible-doc") then
+  vim.bo.keywordprg = ":sp term://ANSIBLE_COLLECTIONS_PATH=. ansible-doc"
 end
 local fname = api.nvim_buf_get_name(0)
-if fname:find('tasks/') then
+if fname:find("tasks/") then
   local paths = {
     vim.bo.path,
     vim.fs.dirname(fname:gsub("tasks/", "files/")),
-    vim.fs.dirname(fname)
+    vim.fs.dirname(fname),
   }
   vim.bo.path = table.concat(paths, ",")
 end
