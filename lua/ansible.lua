@@ -1,7 +1,7 @@
 ---@mod ansible
 local lua_path = os.getenv("LUA_PATH")
-package.path = package_path_str .. lua_path
-package.cpath = package_cpath_str .. lua_path
+package.path = package.path .. ";" .. lua_path
+-- package.cpath = package.cpath .. ";" .. lua_path
 local lyaml = require("lyaml")
 
 local function is_ansible_playbook(file_path)

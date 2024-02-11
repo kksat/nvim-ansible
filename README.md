@@ -11,8 +11,17 @@ git clone \
 
 lua package layml
 
+```bash
+luarocks install lyaml
+```
+
 Required to parse ansible yaml files to determine if they are playbooks.
 
+Please add following to you profile, required to import installed layml lua package.
+
+```bash
+eval "$(luarocks path)"
+```
 
 ## Usage
 
